@@ -4,40 +4,53 @@
 // Tema 2 - Comparação das Cartas
 // Este código inicial serve como base para o desenvolvimento do sistema de comparação de cartas de cidades. 
 // Siga os comentários para implementar cada parte do desafio.
+typedef struct {
+    char nome[50];
+    float pib; 
+    float area; 
+    int populacao; 
+    int poder; 
+} Cidade;
+
+void definirPoder(Cidade *cidade) {
+    if (cidade->pib > 100) {
+        cidade->poder = 58; 
+    } else if (cidade->pib > 50) {
+        cidade->poder = 43; 
+    } else if (cidade->pib > 20) {
+        cidade->poder = 36; 
+    } else {
+        cidade->poder = 25;
+    }
+}
 
 int main() {
-    // Definição das variáveis para armazenar as propriedades das cidades
-    // Você pode utilizar o código do primeiro desafio
+    Cidade cidades[4] = {
+        {"São Paulo", 700.0, 1521.11, 12325232},
+        {"Campinas", 100.0, 795.70, 1213792},
+        {"Santos", 50.0, 280.67, 433656},
+        {"Sorocaba", 20.0, 450.00, 674000}
+    };
+
+    Cidade cidadeVencedora;
+    cidadeVencedora.poder = 0; 
+
+    for (int i = 0; i < 4; i++) {
+        definirPoder(&cidades[i]);
+        printf("Cidade: %s\n", cidades[i].nome);
+        printf("PIB: R$ %.2f bilhões\n", cidades[i].pib);
+        printf("Área: %.2f km²\n", cidades[i].area);
+        printf("População: %d habitantes\n", cidades[i].populacao);
+        printf("Poder: %d\n\n", cidades[i].poder);
+
+        
+        if (cidades[i].poder > cidadeVencedora.poder) {
+            cidadeVencedora = cidades[i];
+        }
+    }
 
     
-    // Cadastro das Cartas:
-    // Implemente a lógica para solicitar ao usuário que insira os dados das cidades
-    // utilizando a função scanf para capturar as entradas.
-    // utilize o código do primeiro desafio
-
-    // Exemplo:
-    // printf("Digite o código da cidade: ");
-    // scanf("%s", codigo);
-    // 
-    // (Repita para cada propriedade)
-
-    // Comparação de Cartas:
-    // Desenvolva a lógica de comparação entre duas cartas.
-    // Utilize estruturas de decisão como if, if-else para comparar atributos como população, área, PIB, etc.
-
-    // Exemplo:
-    // if (populacaoA > populacaoB) {
-    //     printf("Cidade 1 tem maior população.\n");
-    // } else {
-    //     printf("Cidade 2 tem maior população.\n");
-    // }
-
-    // Exibição dos Resultados:
-    // Após realizar as comparações, exiba os resultados para o usuário.
-    // Certifique-se de que o sistema mostre claramente qual carta venceu e com base em qual atributo.
-
-    // Exemplo:
-    // printf("A cidade vencedora é: %s\n", cidadeVencedora);
+    printf("A cidade vencedora é: %s com poder %d\n", cidadeVencedora.nome, cidadeVencedora.poder);
 
     return 0;
 }
